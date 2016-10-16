@@ -4,8 +4,69 @@
   <meta charset="UTF-8">
   <title>trello-board</title>
   <script src="dist/js/main.js" defer async></script>
-  <style></style>
+  <style>
+    board {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    .catalogs {
+      display: flex;
+      flex-direction: row;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .catalog {
+      width: 200px;
+      height: 800px;
+      display: block;
+      outline: red dotted 1px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .tasks {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .task {
+      display: block;
+      outline: blue solid 1px;
+      width: 200px;
+      height: 100px;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
+<board>
+  <!--<ul class="catalogs">-->
+    <!--<li class="catalog  catalog&#45;&#45;todo">-->
+      <!--<ul class="tasks">-->
+        <!--<li class="task">-->
+          <!--<div class="card">-->
+            <!--<div class="card_title"></div>-->
+            <!--<div class="card_description"></div>-->
+            <!--<div class="card_state">-->
+              <!--<span class="card_status"></span>-->
+              <!--<span class="card_order"></span>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="catalog  catalog&#45;&#45;in-progress"></li>-->
+    <!--<li class="catalog  catalog&#45;&#45;done"></li>-->
+  <!--</ul>-->
+</board>
 </body>
 </html>
