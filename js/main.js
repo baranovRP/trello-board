@@ -68,9 +68,35 @@ const task6 = new Task({
 const todoTasks = [task1, task2, task3];
 const inProgressTasks = [task4, task5];
 const doneTasks = [task6];
-const todo = new Catalog({ tasks: todoTasks, title: 'todo' });
+const todo = new Catalog({
+  tasks: todoTasks,
+  title: 'todo',
+  onTaskAdd({ name, description }) {
+    this.tasks.push(new Task({
+      name,
+      description,
+      status: this.title,
+      order: (this.tasks.length),
+    }));
+    this.tasks = [...this.tasks];
+  },
+});
 const inProgress = new Catalog({ tasks: inProgressTasks, title: 'inprogress' });
 const done = new Catalog({ tasks: doneTasks, title: 'done' });
 
 const catalogs = [todo, inProgress, done];
-new Board({ catalogs, node: document.querySelector('board') });
+new Board({
+  catalogs,
+  node: document.querySelector('board'),
+  onTaskAdd({ name, desc }) {
+    function findTodoList(list) {
+      return list.title === 'todo';
+    }
+
+    const todoList = this.catalogs.find(findTodoList);
+    this.catalogs.shift();
+    todoList.onTaskAdd({ name, desc });
+    this.catalogs.unshift(todoList);
+    this.catalogs = [...this.catalogs];
+  },
+});

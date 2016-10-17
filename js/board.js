@@ -6,10 +6,24 @@
 export default class Board {
 
   constructor(config) {
+    const self = this;
     const data = { ...config };
     delete data.catalogs;
     Object.assign(this, data);
     this.catalogs = config.catalogs;
+
+    this.node.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('add-form_button')) {
+        return;
+      }
+      const name = self.node.querySelector('.add-form_name').value;
+      const description = self.node.querySelector('.add-form_description').value;
+      if (name === '') {
+        return;
+      }
+
+      self.onTaskAdd({ name, description });
+    });
   }
 
   render() {
