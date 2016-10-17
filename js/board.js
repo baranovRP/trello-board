@@ -14,6 +14,13 @@ export default class Board {
 
   render() {
     this.node.innerHTML = '';
+    const div = document.createElement('div');
+    div.classList.add('add-form');
+    div.innerHTML = `
+      <input class="add-form_name" type="text" placeholder="add todo" name="todo-name">
+      <textarea class="add-form_description" placeholder="add description" name="description"></textarea>
+      <button class="add-form_button">Добавить</button>`;
+    this.node.appendChild(div);
     const ul = document.createElement('ul');
     ul.classList.add('catalogs');
     this.catalogs.forEach((item) => {
