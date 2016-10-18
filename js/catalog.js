@@ -6,10 +6,15 @@
 export default class Catalog {
 
   constructor(config) {
+    const self = this;
     const data = { ...config };
     delete data.tasks;
     Object.assign(this, data);
     this.tasks = config.tasks;
+
+    this.node.addEventListener('taskremove', (e) => {
+      self.onTaskRemoved(e.detail);
+    });
   }
 
   set tasks(newTasks) {
@@ -22,8 +27,9 @@ export default class Catalog {
   }
 
   render() {
+    this.node.innerHTML = '';
+    this.node.classList.add('tasks', `tasks--${this.title}`);
     const ul = document.createElement('ul');
-    ul.classList.add('tasks', `tasks--${this.title}`);
     const h2 = document.createElement('h2');
     h2.textContent = this.title;
     ul.appendChild(h2);
@@ -33,6 +39,6 @@ export default class Catalog {
       task.classList.add('task');
       ul.appendChild(task);
     });
-    this.node = ul;
+    [...ul.children].forEach(c => this.node.appendChild(c));
   }
 }

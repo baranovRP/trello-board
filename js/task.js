@@ -6,6 +6,7 @@
 export default class Task {
 
   constructor(config) {
+    const self = this;
     if (config.name === '') {
       return;
     }
@@ -15,6 +16,17 @@ export default class Task {
     this.status = data.status;
     this.order = data.order;
     this.node = this.render();
+
+    this.node.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('btn--del')) {
+        return;
+      }
+      self.node.dispatchEvent(new CustomEvent('taskremove', {
+        detail: { task: this },
+        bubbles: true,
+        composed: true,
+      }));
+    });
   }
 
   render() {
@@ -27,13 +39,11 @@ export default class Task {
         <span class="card_status">${this.status}</span>
         <span class="card_order">${this.order}</span>
       </div>
-      <!--<div class="card-nav">-->
-        <!--<button class="btn  btn&#45;&#45;top">&uArr;</button>-->
-        <!--<button class="btn  btn&#45;&#45;right">&rArr;</button>-->
-        <!--<button class="btn  btn&#45;&#45;bottom">&dArr;</button>-->
-        <!--<button class="btn  btn&#45;&#45;left">&lArr;</button>-->
-        <!--<button class="btn  btn&#45;&#45;del">x</button>-->
-      <!--</div>-->
+      <button class="btn  btn--top">&uArr;</button>
+      <button class="btn  btn--right">&rArr;</button>
+      <button class="btn  btn--bottom">&dArr;</button>
+      <button class="btn  btn--left">&lArr;</button>
+      <button class="btn  btn--del">x</button>
       `;
 
     return div;

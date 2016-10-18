@@ -71,6 +71,7 @@ const doneTasks = [task6];
 const todo = new Catalog({
   tasks: todoTasks,
   title: 'todo',
+  node: document.createElement('ul'),
   onTaskAdd({ name, description }) {
     this.tasks.push(new Task({
       name,
@@ -80,9 +81,59 @@ const todo = new Catalog({
     }));
     this.tasks = [...this.tasks];
   },
+  onTaskRemoved(t) {
+    let counter = 0;
+    const l = this.tasks.map((i) => {
+      if (i.order !== t.task.order) {
+        return new Task({
+          name: i.name,
+          description: i.description,
+          status: i.status,
+          order: (counter++),
+        });
+      }
+    }).filter(r => r);
+    this.tasks = [...l];
+  },
 });
-const inProgress = new Catalog({ tasks: inProgressTasks, title: 'inprogress' });
-const done = new Catalog({ tasks: doneTasks, title: 'done' });
+const inProgress = new Catalog({
+  tasks: inProgressTasks,
+  title: 'inprogress',
+  node: document.createElement('ul'),
+  onTaskRemoved(t) {
+    let counter = 0;
+    const l = this.tasks.map((i) => {
+      if (i.order !== t.task.order) {
+        return new Task({
+          name: i.name,
+          description: i.description,
+          status: i.status,
+          order: (counter++),
+        });
+      }
+    }).filter(r => r);
+    this.tasks = [...l];
+  },
+});
+const done = new Catalog({
+  tasks: doneTasks,
+  title: 'done',
+  node: document.createElement('ul'),
+  onTaskRemoved(t) {
+    let counter = 0;
+    const l = this.tasks.map((i) => {
+      if (i.order !== t.task.order) {
+        return new Task({
+          name: i.name,
+          description: i.description,
+          status: i.status,
+          order: (counter++),
+        });
+      }
+    }).filter(r => r);
+    this.tasks = [...l];
+  },
+});
 
 const catalogs = [todo, inProgress, done];
 new Board({
