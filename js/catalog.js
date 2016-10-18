@@ -13,15 +13,15 @@ export default class Catalog {
     this.tasks = config.tasks;
 
     this.node.addEventListener('task-remove', (e) => {
-      self.onTaskRemoved(e.detail);
+      self.onTaskRemoved(e.detail.task);
     });
 
     this.node.addEventListener('task-move-up', (e) => {
-      self.onTaskMoveUp(e.detail);
+      self.onTaskMoveUp(e.detail.task);
     });
 
     this.node.addEventListener('task-move-down', (e) => {
-      self.onTaskMoveDown(e.detail);
+      self.onTaskMoveDown(e.detail.task);
     });
   }
 

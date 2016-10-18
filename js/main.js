@@ -84,7 +84,7 @@ const todo = new Catalog({
   onTaskRemoved(t) {
     let counter = 0;
     const l = this.tasks.map((i) => {
-      if (i.order !== t.task.order) {
+      if (i.order !== t.order) {
         return new Task({
           name: i.name,
           description: i.description,
@@ -97,7 +97,7 @@ const todo = new Catalog({
   },
   onTaskMoveUp(t) {
     function findTask(item) {
-      return item.order === t.task.order;
+      return item.order === t.order;
     }
 
     const task = this.tasks.find(findTask);
@@ -124,7 +124,7 @@ const todo = new Catalog({
   },
   onTaskMoveDown(t) {
     function findTask(item) {
-      return item.order === t.task.order;
+      return item.order === t.order;
     }
 
     const task = this.tasks.find(findTask);
@@ -154,10 +154,19 @@ const inProgress = new Catalog({
   tasks: inProgressTasks,
   title: 'inprogress',
   node: document.createElement('ul'),
+  onTaskAdd(t) {
+    this.tasks.push(new Task({
+      name: t.name,
+      description: t.description,
+      status: this.title,
+      order: (this.tasks.length),
+    }));
+    this.tasks = [...this.tasks];
+  },
   onTaskRemoved(t) {
     let counter = 0;
     const l = this.tasks.map((i) => {
-      if (i.order !== t.task.order) {
+      if (i.order !== t.order) {
         return new Task({
           name: i.name,
           description: i.description,
@@ -170,7 +179,7 @@ const inProgress = new Catalog({
   },
   onTaskMoveUp(t) {
     function findTask(item) {
-      return item.order === t.task.order;
+      return item.order === t.order;
     }
 
     const task = this.tasks.find(findTask);
@@ -197,7 +206,7 @@ const inProgress = new Catalog({
   },
   onTaskMoveDown(t) {
     function findTask(item) {
-      return item.order === t.task.order;
+      return item.order === t.order;
     }
 
     const task = this.tasks.find(findTask);
@@ -227,10 +236,19 @@ const done = new Catalog({
   tasks: doneTasks,
   title: 'done',
   node: document.createElement('ul'),
+  onTaskAdd(t) {
+    this.tasks.push(new Task({
+      name: t.name,
+      description: t.description,
+      status: this.title,
+      order: (this.tasks.length),
+    }));
+    this.tasks = [...this.tasks];
+  },
   onTaskRemoved(t) {
     let counter = 0;
     const l = this.tasks.map((i) => {
-      if (i.order !== t.task.order) {
+      if (i.order !== t.order) {
         return new Task({
           name: i.name,
           description: i.description,
@@ -243,7 +261,7 @@ const done = new Catalog({
   },
   onTaskMoveUp(t) {
     function findTask(item) {
-      return item.order === t.task.order;
+      return item.order === t.order;
     }
 
     const task = this.tasks.find(findTask);
@@ -270,7 +288,7 @@ const done = new Catalog({
   },
   onTaskMoveDown(t) {
     function findTask(item) {
-      return item.order === t.task.order;
+      return item.order === t.order;
     }
 
     const task = this.tasks.find(findTask);
@@ -310,6 +328,40 @@ new Board({
     this.catalogs.shift();
     todoList.onTaskAdd({ name, desc });
     this.catalogs.unshift(todoList);
+    this.catalogs = [...this.catalogs];
+  },
+  onTaskMoveRight(t) {
+    function findList(list) {
+      return list.title === t.status;
+    }
+
+    const tasksList = this.catalogs.find(findList);
+    const idxCatalog = this.catalogs.indexOf(tasksList);
+
+    function findTask(item) {
+      return item.order === t.order;
+    }
+
+    const task = tasksList.tasks.find(findTask);
+    tasksList.onTaskRemoved(task);
+    this.catalogs[idxCatalog + 1].onTaskAdd(task);
+    this.catalogs = [...this.catalogs];
+  },
+  onTaskMoveLeft(t) {
+    function findList(list) {
+      return list.title === t.status;
+    }
+
+    const tasksList = this.catalogs.find(findList);
+    const idxCatalog = this.catalogs.indexOf(tasksList);
+
+    function findTask(item) {
+      return item.order === t.order;
+    }
+
+    const task = tasksList.tasks.find(findTask);
+    tasksList.onTaskRemoved(task);
+    this.catalogs[idxCatalog - 1].onTaskAdd(task);
     this.catalogs = [...this.catalogs];
   },
 });

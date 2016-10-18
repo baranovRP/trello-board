@@ -36,6 +36,18 @@ export default class Task {
           bubbles: true,
           composed: true,
         }));
+      } else if (e.target.classList.contains('btn--right')) {
+        self.node.dispatchEvent(new CustomEvent('task-move-right', {
+          detail: { task: this },
+          bubbles: true,
+          composed: true,
+        }));
+      } else if (e.target.classList.contains('btn--left')) {
+        self.node.dispatchEvent(new CustomEvent('task-move-left', {
+          detail: { task: this },
+          bubbles: true,
+          composed: true,
+        }));
       }
     });
   }

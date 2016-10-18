@@ -24,6 +24,14 @@ export default class Board {
 
       self.onTaskAdd({ name, description });
     });
+
+    this.node.addEventListener('task-move-right', (e) => {
+      self.onTaskMoveRight(e.detail.task);
+    });
+
+    this.node.addEventListener('task-move-left', (e) => {
+      self.onTaskMoveLeft(e.detail.task);
+    });
   }
 
   render() {
