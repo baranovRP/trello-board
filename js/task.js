@@ -18,14 +18,25 @@ export default class Task {
     this.node = this.render();
 
     this.node.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('btn--del')) {
-        return;
+      if (e.target.classList.contains('btn--del')) {
+        self.node.dispatchEvent(new CustomEvent('task-remove', {
+          detail: { task: this },
+          bubbles: true,
+          composed: true,
+        }));
+      } else if (e.target.classList.contains('btn--up')) {
+        self.node.dispatchEvent(new CustomEvent('task-move-up', {
+          detail: { task: this },
+          bubbles: true,
+          composed: true,
+        }));
+      } else if (e.target.classList.contains('btn--down')) {
+        self.node.dispatchEvent(new CustomEvent('task-move-down', {
+          detail: { task: this },
+          bubbles: true,
+          composed: true,
+        }));
       }
-      self.node.dispatchEvent(new CustomEvent('taskremove', {
-        detail: { task: this },
-        bubbles: true,
-        composed: true,
-      }));
     });
   }
 
@@ -39,9 +50,9 @@ export default class Task {
         <span class="card_status">${this.status}</span>
         <span class="card_order">${this.order}</span>
       </div>
-      <button class="btn  btn--top">&uArr;</button>
+      <button class="btn  btn--up">&uArr;</button>
       <button class="btn  btn--right">&rArr;</button>
-      <button class="btn  btn--bottom">&dArr;</button>
+      <button class="btn  btn--down">&dArr;</button>
       <button class="btn  btn--left">&lArr;</button>
       <button class="btn  btn--del">x</button>
       `;

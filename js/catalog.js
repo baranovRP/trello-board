@@ -12,8 +12,16 @@ export default class Catalog {
     Object.assign(this, data);
     this.tasks = config.tasks;
 
-    this.node.addEventListener('taskremove', (e) => {
+    this.node.addEventListener('task-remove', (e) => {
       self.onTaskRemoved(e.detail);
+    });
+
+    this.node.addEventListener('task-move-up', (e) => {
+      self.onTaskMoveUp(e.detail);
+    });
+
+    this.node.addEventListener('task-move-down', (e) => {
+      self.onTaskMoveDown(e.detail);
     });
   }
 

@@ -95,6 +95,60 @@ const todo = new Catalog({
     }).filter(r => r);
     this.tasks = [...l];
   },
+  onTaskMoveUp(t) {
+    function findTask(item) {
+      return item.order === t.task.order;
+    }
+
+    const task = this.tasks.find(findTask);
+    const idx = this.tasks.indexOf(task);
+    const temp = new Task({
+      name: this.tasks[idx - 1].name,
+      description: this.tasks[idx - 1].description,
+      status: this.tasks[idx - 1].status,
+      order: this.tasks[idx - 1].order,
+    });
+    this.tasks[idx - 1] = new Task({
+      name: this.tasks[idx].name,
+      description: this.tasks[idx].description,
+      status: this.tasks[idx].status,
+      order: this.tasks[idx - 1].order,
+    });
+    this.tasks[idx] = new Task({
+      name: temp.name,
+      description: temp.description,
+      status: temp.status,
+      order: this.tasks[idx].order,
+    });
+    this.tasks = [...this.tasks];
+  },
+  onTaskMoveDown(t) {
+    function findTask(item) {
+      return item.order === t.task.order;
+    }
+
+    const task = this.tasks.find(findTask);
+    const idx = this.tasks.indexOf(task);
+    const temp = new Task({
+      name: this.tasks[idx + 1].name,
+      description: this.tasks[idx + 1].description,
+      status: this.tasks[idx + 1].status,
+      order: this.tasks[idx + 1].order,
+    });
+    this.tasks[idx + 1] = new Task({
+      name: this.tasks[idx].name,
+      description: this.tasks[idx].description,
+      status: this.tasks[idx].status,
+      order: this.tasks[idx + 1].order,
+    });
+    this.tasks[idx] = new Task({
+      name: temp.name,
+      description: temp.description,
+      status: temp.status,
+      order: this.tasks[idx].order,
+    });
+    this.tasks = [...this.tasks];
+  },
 });
 const inProgress = new Catalog({
   tasks: inProgressTasks,
@@ -114,6 +168,60 @@ const inProgress = new Catalog({
     }).filter(r => r);
     this.tasks = [...l];
   },
+  onTaskMoveUp(t) {
+    function findTask(item) {
+      return item.order === t.task.order;
+    }
+
+    const task = this.tasks.find(findTask);
+    const idx = this.tasks.indexOf(task);
+    const temp = new Task({
+      name: this.tasks[idx - 1].name,
+      description: this.tasks[idx - 1].description,
+      status: this.tasks[idx - 1].status,
+      order: this.tasks[idx - 1].order,
+    });
+    this.tasks[idx - 1] = new Task({
+      name: this.tasks[idx].name,
+      description: this.tasks[idx].description,
+      status: this.tasks[idx].status,
+      order: this.tasks[idx - 1].order,
+    });
+    this.tasks[idx] = new Task({
+      name: temp.name,
+      description: temp.description,
+      status: temp.status,
+      order: this.tasks[idx].order,
+    });
+    this.tasks = [...this.tasks];
+  },
+  onTaskMoveDown(t) {
+    function findTask(item) {
+      return item.order === t.task.order;
+    }
+
+    const task = this.tasks.find(findTask);
+    const idx = this.tasks.indexOf(task);
+    const temp = new Task({
+      name: this.tasks[idx + 1].name,
+      description: this.tasks[idx + 1].description,
+      status: this.tasks[idx + 1].status,
+      order: this.tasks[idx + 1].order,
+    });
+    this.tasks[idx + 1] = new Task({
+      name: this.tasks[idx].name,
+      description: this.tasks[idx].description,
+      status: this.tasks[idx].status,
+      order: this.tasks[idx + 1].order,
+    });
+    this.tasks[idx] = new Task({
+      name: temp.name,
+      description: temp.description,
+      status: temp.status,
+      order: this.tasks[idx].order,
+    });
+    this.tasks = [...this.tasks];
+  },
 });
 const done = new Catalog({
   tasks: doneTasks,
@@ -132,6 +240,60 @@ const done = new Catalog({
       }
     }).filter(r => r);
     this.tasks = [...l];
+  },
+  onTaskMoveUp(t) {
+    function findTask(item) {
+      return item.order === t.task.order;
+    }
+
+    const task = this.tasks.find(findTask);
+    const idx = this.tasks.indexOf(task);
+    const temp = new Task({
+      name: this.tasks[idx - 1].name,
+      description: this.tasks[idx - 1].description,
+      status: this.tasks[idx - 1].status,
+      order: this.tasks[idx - 1].order,
+    });
+    this.tasks[idx - 1] = new Task({
+      name: this.tasks[idx].name,
+      description: this.tasks[idx].description,
+      status: this.tasks[idx].status,
+      order: this.tasks[idx - 1].order,
+    });
+    this.tasks[idx] = new Task({
+      name: temp.name,
+      description: temp.description,
+      status: temp.status,
+      order: this.tasks[idx].order,
+    });
+    this.tasks = [...this.tasks];
+  },
+  onTaskMoveDown(t) {
+    function findTask(item) {
+      return item.order === t.task.order;
+    }
+
+    const task = this.tasks.find(findTask);
+    const idx = this.tasks.indexOf(task);
+    const temp = new Task({
+      name: this.tasks[idx + 1].name,
+      description: this.tasks[idx + 1].description,
+      status: this.tasks[idx + 1].status,
+      order: this.tasks[idx + 1].order,
+    });
+    this.tasks[idx + 1] = new Task({
+      name: this.tasks[idx].name,
+      description: this.tasks[idx].description,
+      status: this.tasks[idx].status,
+      order: this.tasks[idx + 1].order,
+    });
+    this.tasks[idx] = new Task({
+      name: temp.name,
+      description: temp.description,
+      status: temp.status,
+      order: this.tasks[idx].order,
+    });
+    this.tasks = [...this.tasks];
   },
 });
 
