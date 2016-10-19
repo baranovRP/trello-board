@@ -10,6 +10,8 @@
       height: 100%;
       padding: 0;
       margin: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .add-form {
@@ -17,11 +19,13 @@
       flex-direction: column;
       width: 400px;
       margin: auto;
+      margin-bottom: 40px;
     }
 
     .catalogs {
       display: flex;
       flex-direction: row;
+      align-self: center;
       padding: 0;
       margin: 0;
       list-style: none;
@@ -29,11 +33,15 @@
 
     .catalog {
       width: 200px;
-      height: 800px;
       display: block;
-      outline: red dotted 1px;
+      background-color: #669999;
       padding: 0;
       margin: 0;
+      margin-right: 20px;
+    }
+
+    .catalog:last-child {
+      margin-right: 0;
     }
 
     .tasks {
@@ -50,17 +58,56 @@
 
     .task {
       display: block;
-      outline: blue solid 1px;
+      position: relative;
       width: 200px;
-      height: 100px;
       padding: 0;
       margin: 0;
+      margin-bottom: 5px;
+      background-color: #0d4d4d;
+    }
+
+    .task:last-child {
+      margin-bottom: 0;
+    }
+
+    .card {
+      padding: 30px;
     }
 
     .card_title {
       text-align: center;
       margin: 5px;
       padding: 0;
+    }
+
+    .btn--up {
+      position: absolute;
+      top: 0;
+      left: 50%;
+    }
+
+    .btn--right {
+      position: absolute;
+      top: 50%;
+      right: 0;
+    }
+
+    .btn--down {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+    }
+
+    .btn--left {
+      position: absolute;
+      top: 50%;
+      left: 0;
+    }
+
+    .btn--del {
+      position: absolute;
+      top: 0;
+      right: 0;
     }
   </style>
 </head>
