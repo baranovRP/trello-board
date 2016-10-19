@@ -22,7 +22,7 @@ export default class Board {
         return;
       }
 
-      self.onTaskAdd({ name, description });
+      self.onTaskCreated({ name, description });
     });
 
     this.node.addEventListener('task-move-right', (e) => {
@@ -50,11 +50,11 @@ export default class Board {
       const catalog = document.createElement('li');
       catalog.appendChild(item.node);
       catalog.classList.add('catalog');
-      if (idx === 0 && catalog.querySelector('.btn--left')) {
-        catalog.querySelector('.btn--left').disabled = true;
+      if (idx === 0) {
+        [...item.node.querySelectorAll('.btn--left')].forEach(i => i.disabled = true);
       }
-      if (idx === (size - 1) && catalog.querySelector('.btn--right')) {
-        catalog.querySelector('.btn--right').disabled = true;
+      if (idx === (size - 1)) {
+        [...item.node.querySelectorAll('.btn--right')].forEach(i => i.disabled = true);
       }
       ul.appendChild(catalog);
     });
