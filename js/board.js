@@ -45,10 +45,17 @@ export default class Board {
     this.node.appendChild(div);
     const ul = document.createElement('ul');
     ul.classList.add('catalogs');
-    this.catalogs.forEach((item) => {
+    const size = this.catalogs.length;
+    this.catalogs.forEach((item, idx) => {
       const catalog = document.createElement('li');
       catalog.appendChild(item.node);
       catalog.classList.add('catalog');
+      if (idx === 0 && catalog.querySelector('.btn--left')) {
+        catalog.querySelector('.btn--left').disabled = true;
+      }
+      if (idx === (size - 1) && catalog.querySelector('.btn--right')) {
+        catalog.querySelector('.btn--right').disabled = true;
+      }
       ul.appendChild(catalog);
     });
     this.node.appendChild(ul);

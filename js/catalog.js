@@ -40,10 +40,17 @@ export default class Catalog {
     const ul = document.createElement('ul');
     const h2 = document.createElement('h2');
     h2.textContent = this.title;
+    const size = this.tasks.length;
     ul.appendChild(h2);
-    this.tasks.forEach((item) => {
+    this.tasks.forEach((item, idx) => {
       const task = document.createElement('li');
       task.appendChild(item.node);
+      if (idx === 0 && task.querySelector('.btn--up')) {
+        task.querySelector('.btn--up').disabled = true;
+      }
+      if (idx === (size - 1) && task.querySelector('.btn--down')) {
+        task.querySelector('.btn--down').disabled = true;
+      }
       task.classList.add('task');
       ul.appendChild(task);
     });
