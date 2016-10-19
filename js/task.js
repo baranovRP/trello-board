@@ -15,7 +15,8 @@ export default class Task {
     this.description = data.description;
     this.status = data.status;
     this.order = data.order;
-    this.node = this.render();
+    this.node = document.createElement('div');
+    this.node.classList.add('card');
 
     this.node.addEventListener('click', (e) => {
       if (e.target.classList.contains('btn--del')) {
@@ -50,11 +51,12 @@ export default class Task {
         }));
       }
     });
+    this.render();
   }
 
   render() {
+    this.node.innerHTML = '';
     const div = document.createElement('div');
-    div.classList.add('card');
     div.innerHTML = `
       <h3 class="card_title">${this.name}</h3>
       <div class="card_description">${this.description}</div>
@@ -69,25 +71,8 @@ export default class Task {
       <button class="btn  btn--del">x</button>
       `;
 
-    return div;
+    [...div.children].forEach(c => this.node.appendChild(c));
   }
-
-  // _disableButtons(el) {
-  //   const elem = el.cloneNode(true);
-  //   if (this.order === 0) {
-  //     elem.querySelector('.btn--top').disabled = true;
-  //   }
-  //   if (this.status === 'todo') {
-  //     elem.querySelector('.btn--left').disabled = true;
-  //   }
-  //   if (this.status === 'done') {
-  //     elem.querySelector('.btn--right').disabled = true;
-  //   }
-  //   if (this.last) {
-  //     elem.querySelector('.btn--bottom').disabled = true;
-  //   }
-  //   return elem;
-  // }
 
   get name() {
     return this._name;
@@ -122,13 +107,5 @@ export default class Task {
 
   set order(value) {
     this._order = value;
-  }
-
-  get node() {
-    return this._node;
-  }
-
-  set node(value) {
-    this._node = value.cloneNode(true);
   }
 }

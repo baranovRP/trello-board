@@ -45,6 +45,8 @@ export default class Catalog {
     this.tasks.forEach((item, idx) => {
       const task = document.createElement('li');
       task.appendChild(item.node);
+      [...task.querySelectorAll('.btn--up')].forEach(i => i.disabled = false);
+      [...task.querySelectorAll('.btn--down')].forEach(i => i.disabled = false);
       if (idx === 0 && task.querySelector('.btn--up')) {
         task.querySelector('.btn--up').disabled = true;
       }
