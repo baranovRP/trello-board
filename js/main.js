@@ -53,27 +53,17 @@ function moveTaskVert(t, tasks, direction) {
 
   const task = tasks.find(findTask);
   const idx = tasks.indexOf(task);
-  const temp = new Task({
-    name: tasks[idx + direction].name,
-    description: tasks[idx + direction].description,
-    status: tasks[idx + direction].status,
-    order: tasks[idx + direction].order,
-    node: document.createElement('div'),
-  });
-  tasks[idx + direction] = new Task({
-    name: tasks[idx].name,
-    description: tasks[idx].description,
-    status: tasks[idx].status,
-    order: tasks[idx + direction].order,
-    node: document.createElement('div'),
-  });
-  tasks[idx] = new Task({
-    name: temp.name,
-    description: temp.description,
-    status: temp.status,
-    order: tasks[idx].order,
-    node: document.createElement('div'),
-  });
+  const temp = Object.create(
+    Object.getPrototypeOf(tasks[idx + direction]),
+    Object.getOwnPropertyDescriptors(tasks[idx + direction]));
+  tasks[idx + direction] = Object.create(
+    Object.getPrototypeOf(tasks[idx]),
+    Object.getOwnPropertyDescriptors(tasks[idx]));
+  tasks[idx + direction].order = temp.order;
+  temp.order = tasks[idx].order;
+  tasks[idx] = Object.create(
+    Object.getPrototypeOf(temp),
+    Object.getOwnPropertyDescriptors(temp));
   return [...tasks];
 }
 
