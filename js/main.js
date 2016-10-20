@@ -28,6 +28,7 @@ function removeTask(t, tasks) {
         description: i.description,
         status: i.status,
         order: (counter++),
+        node: document.createElement('div'),
       });
     }
   }).filter(r => r);
@@ -40,6 +41,7 @@ function addTask(t, title, tasks) {
     description: t.description,
     status: title,
     order: (tasks.length),
+    node: document.createElement('div'),
   }));
   return [...tasks];
 }
@@ -56,18 +58,21 @@ function moveTaskVert(t, tasks, direction) {
     description: tasks[idx + direction].description,
     status: tasks[idx + direction].status,
     order: tasks[idx + direction].order,
+    node: document.createElement('div'),
   });
   tasks[idx + direction] = new Task({
     name: tasks[idx].name,
     description: tasks[idx].description,
     status: tasks[idx].status,
     order: tasks[idx + direction].order,
+    node: document.createElement('div'),
   });
   tasks[idx] = new Task({
     name: temp.name,
     description: temp.description,
     status: temp.status,
     order: tasks[idx].order,
+    node: document.createElement('div'),
   });
   return [...tasks];
 }
@@ -95,36 +100,42 @@ const task1 = new Task({
   description: 'description for task1',
   status: 'todo',
   order: 0,
+  node: document.createElement('div'),
 });
 const task2 = new Task({
   name: 'task2',
   description: 'description for task2',
   status: 'todo',
   order: 1,
+  node: document.createElement('div'),
 });
 const task3 = new Task({
   name: 'task3',
   description: 'description for task3',
   status: 'todo',
   order: 2,
+  node: document.createElement('div'),
 });
 const task4 = new Task({
   name: 'task4',
   description: 'description for task4',
   status: 'inprogress',
   order: 0,
+  node: document.createElement('div'),
 });
 const task5 = new Task({
   name: 'task5',
   description: 'description for task5',
   status: 'inprogress',
   order: 1,
+  node: document.createElement('div'),
 });
 const task6 = new Task({
   name: 'task6',
   description: 'description for task6',
   status: 'done',
   order: 0,
+  node: document.createElement('div'),
 });
 
 const todoTasks = [task1, task2, task3];
@@ -199,6 +210,7 @@ new Board({
       description,
       title: todoList.title,
       order: todoList.length,
+      node: document.createElement('div'),
     }));
     this.catalogs.unshift(todoList);
     this.catalogs = [...this.catalogs];

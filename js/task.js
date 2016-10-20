@@ -11,12 +11,12 @@ export default class Task {
       return;
     }
     const data = { ...config };
+    this.node = data.node;
+    this.node.classList.add('card');
     this.name = data.name;
     this.description = data.description;
     this.status = data.status;
     this.order = data.order;
-    this.node = document.createElement('div');
-    this.node.classList.add('card');
 
     this.node.addEventListener('click', (e) => {
       if (e.target.classList.contains('btn--del')) {
@@ -51,7 +51,6 @@ export default class Task {
         }));
       }
     });
-    this.render();
   }
 
   render() {
@@ -83,6 +82,7 @@ export default class Task {
       return;
     }
     this._name = value;
+    this.render();
   }
 
   get description() {
@@ -91,6 +91,7 @@ export default class Task {
 
   set description(value) {
     this._description = value;
+    this.render();
   }
 
   get status() {
@@ -99,6 +100,7 @@ export default class Task {
 
   set status(value) {
     this._status = value;
+    this.render();
   }
 
   get order() {
@@ -107,5 +109,6 @@ export default class Task {
 
   set order(value) {
     this._order = value;
+    this.render();
   }
 }
