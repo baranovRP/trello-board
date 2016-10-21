@@ -52,7 +52,6 @@ function moveTaskVert(t, catalogs, direction) {
   }
 
   const tasksList = catalogs.find(findList);
-  const idxCatalog = catalogs.indexOf(tasksList);
 
   function findTask(item) {
     return item.order === t.order;
@@ -61,12 +60,6 @@ function moveTaskVert(t, catalogs, direction) {
   const task = tasksList.tasks.find(findTask);
   const idx = tasksList.tasks.indexOf(task);
 
-  // function findTask(item) {
-  //   return item.order === t.order;
-  // }
-  //
-  // const task = tasks.find(findTask);
-  // const idx = tasks.indexOf(task);
   const temp = new Task({
     name: tasksList.tasks[idx + direction].name,
     description: tasksList.tasks[idx + direction].description,
@@ -167,12 +160,6 @@ const todo = new Catalog({
   onTaskRemoved(t) {
     this.tasks = removeTask(t, [...this.tasks]);
   },
-  // onTaskMoveUp(t) {
-  //   this.tasks = moveTaskVert(t, [...this.tasks], MOVE.UP);
-  // },
-  // onTaskMoveDown(t) {
-  //   this.tasks = moveTaskVert(t, [...this.tasks], MOVE.DOWN);
-  // },
 });
 const inProgress = new Catalog({
   tasks: inProgressTasks,

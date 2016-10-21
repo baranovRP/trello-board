@@ -66,9 +66,11 @@ export default class Board {
       catalog.appendChild(item.node);
       catalog.classList.add('catalog');
       if (item.node.querySelector('.btn--up')) {
+        [...item.node.querySelectorAll('.btn--up')].forEach(i => i.disabled = false);
         [...item.node.querySelectorAll('.btn--up')][0].disabled = true;
       }
       if (item.node.querySelector('.btn--down')) {
+        [...item.node.querySelectorAll('.btn--down')].forEach(i => i.disabled = false);
         [...item.node.querySelectorAll('.btn--down')][item.tasks.length - 1].disabled = true;
       }
       if (idx === 0) {
