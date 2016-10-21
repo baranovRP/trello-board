@@ -46,35 +46,50 @@ function addTask(t, title, tasks) {
   return [...tasks];
 }
 
-function moveTaskVert(t, tasks, direction) {
+function moveTaskVert(t, catalogs, direction) {
+  function findList(list) {
+    return list.title === t.status;
+  }
+
+  const tasksList = catalogs.find(findList);
+  const idxCatalog = catalogs.indexOf(tasksList);
+
   function findTask(item) {
     return item.order === t.order;
   }
 
-  const task = tasks.find(findTask);
-  const idx = tasks.indexOf(task);
+  const task = tasksList.tasks.find(findTask);
+  const idx = tasksList.tasks.indexOf(task);
+
+  // function findTask(item) {
+  //   return item.order === t.order;
+  // }
+  //
+  // const task = tasks.find(findTask);
+  // const idx = tasks.indexOf(task);
   const temp = new Task({
-    name: tasks[idx + direction].name,
-    description: tasks[idx + direction].description,
-    status: tasks[idx + direction].status,
-    order: tasks[idx + direction].order,
+    name: tasksList.tasks[idx + direction].name,
+    description: tasksList.tasks[idx + direction].description,
+    status: tasksList.tasks[idx + direction].status,
+    order: tasksList.tasks[idx + direction].order,
     node: document.createElement('div'),
   });
-  tasks[idx + direction] = new Task({
-    name: tasks[idx].name,
-    description: tasks[idx].description,
-    status: tasks[idx].status,
-    order: tasks[idx + direction].order,
+  tasksList.tasks[idx + direction] = new Task({
+    name: tasksList.tasks[idx].name,
+    description: tasksList.tasks[idx].description,
+    status: tasksList.tasks[idx].status,
+    order: tasksList.tasks[idx + direction].order,
     node: document.createElement('div'),
   });
-  tasks[idx] = new Task({
+  tasksList.tasks[idx] = new Task({
     name: temp.name,
     description: temp.description,
     status: temp.status,
-    order: tasks[idx].order,
+    order: tasksList.tasks[idx].order,
     node: document.createElement('div'),
   });
-  return [...tasks];
+  tasksList.tasks = [...tasksList.tasks];
+  return [...catalogs];
 }
 
 function moveTaskHoriz(t, catalogs, direction) {
@@ -152,12 +167,12 @@ const todo = new Catalog({
   onTaskRemoved(t) {
     this.tasks = removeTask(t, [...this.tasks]);
   },
-  onTaskMoveUp(t) {
-    this.tasks = moveTaskVert(t, [...this.tasks], MOVE.UP);
-  },
-  onTaskMoveDown(t) {
-    this.tasks = moveTaskVert(t, [...this.tasks], MOVE.DOWN);
-  },
+  // onTaskMoveUp(t) {
+  //   this.tasks = moveTaskVert(t, [...this.tasks], MOVE.UP);
+  // },
+  // onTaskMoveDown(t) {
+  //   this.tasks = moveTaskVert(t, [...this.tasks], MOVE.DOWN);
+  // },
 });
 const inProgress = new Catalog({
   tasks: inProgressTasks,
@@ -203,7 +218,9 @@ new Board({
       return list.title === 'todo';
     }
 
+    this.catalogs = [...this.catalogs];
     const todoList = this.catalogs.find(findTodoList);
+    todoList.tasks = [...todoList.tasks];
     this.catalogs.shift();
     todoList.onTaskAdd(new Task({
       name,
@@ -212,8 +229,25 @@ new Board({
       order: todoList.length,
       node: document.createElement('div'),
     }));
+    todoList.tasks = [...todoList.tasks];
     this.catalogs.unshift(todoList);
     this.catalogs = [...this.catalogs];
+  },
+  onTaskRemoved(t) {
+    function findList(list) {
+      return list.title === t.status;
+    }
+
+    const tasksList = this.catalogs.find(findList);
+    tasksList.onTaskRemoved(t);
+    tasksList.tasks = [...tasksList.tasks];
+    this.catalogs = [...this.catalogs];
+  },
+  onTaskMoveUp(t) {
+    this.catalogs = moveTaskVert(t, [...this.catalogs], MOVE.UP);
+  },
+  onTaskMoveDown(t) {
+    this.catalogs = moveTaskVert(t, [...this.catalogs], MOVE.DOWN);
   },
   onTaskMoveRight(t) {
     this.catalogs = moveTaskHoriz(t, [...this.catalogs], MOVE.RIGHT);

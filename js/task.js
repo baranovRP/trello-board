@@ -21,31 +21,31 @@ export default class Task {
     this.node.addEventListener('click', (e) => {
       if (e.target.classList.contains('btn--del')) {
         self.node.dispatchEvent(new CustomEvent('task-remove', {
-          detail: { task: this },
+          detail: { task: self },
           bubbles: true,
           composed: true,
         }));
       } else if (e.target.classList.contains('btn--up')) {
         self.node.dispatchEvent(new CustomEvent('task-move-up', {
-          detail: { task: this },
+          detail: { task: self },
           bubbles: true,
           composed: true,
         }));
       } else if (e.target.classList.contains('btn--down')) {
         self.node.dispatchEvent(new CustomEvent('task-move-down', {
-          detail: { task: this },
+          detail: { task: self },
           bubbles: true,
           composed: true,
         }));
       } else if (e.target.classList.contains('btn--right')) {
         self.node.dispatchEvent(new CustomEvent('task-move-right', {
-          detail: { task: this },
+          detail: { task: self },
           bubbles: true,
           composed: true,
         }));
       } else if (e.target.classList.contains('btn--left')) {
         self.node.dispatchEvent(new CustomEvent('task-move-left', {
-          detail: { task: this },
+          detail: { task: self },
           bubbles: true,
           composed: true,
         }));

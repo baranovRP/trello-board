@@ -25,6 +25,18 @@ export default class Board {
       self.onTaskCreated({ name, description });
     });
 
+    this.node.addEventListener('task-remove', (e) => {
+      self.onTaskRemoved(e.detail.task);
+    });
+
+    this.node.addEventListener('task-move-up', (e) => {
+      self.onTaskMoveUp(e.detail.task);
+    });
+
+    this.node.addEventListener('task-move-down', (e) => {
+      self.onTaskMoveDown(e.detail.task);
+    });
+
     this.node.addEventListener('task-move-right', (e) => {
       self.onTaskMoveRight(e.detail.task);
     });
@@ -38,18 +50,27 @@ export default class Board {
     this.node.innerHTML = '';
     const div = document.createElement('div');
     div.classList.add('add-form');
+
     div.innerHTML = `
       <input class="add-form_name" type="text" placeholder="add todo" name="todo-name">
       <textarea class="add-form_description" placeholder="add description" name="description"></textarea>
       <button class="add-form_button">Добавить</button>`;
     this.node.appendChild(div);
+
     const ul = document.createElement('ul');
     ul.classList.add('catalogs');
     const size = this.catalogs.length;
+
     this.catalogs.forEach((item, idx) => {
       const catalog = document.createElement('li');
       catalog.appendChild(item.node);
       catalog.classList.add('catalog');
+      if (item.node.querySelector('.btn--up')) {
+        [...item.node.querySelectorAll('.btn--up')][0].disabled = true;
+      }
+      if (item.node.querySelector('.btn--down')) {
+        [...item.node.querySelectorAll('.btn--down')][item.tasks.length - 1].disabled = true;
+      }
       if (idx === 0) {
         [...item.node.querySelectorAll('.btn--left')].forEach(i => i.disabled = true);
       }
