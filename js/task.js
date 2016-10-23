@@ -13,6 +13,7 @@ export default class Task {
     const data = { ...config };
     this.node = data.node;
     this.node.classList.add('card');
+    this.node.id = 'draggable';
     this.name = data.name;
     this.description = data.description;
     this.status = data.status;

@@ -15,7 +15,7 @@ const MOVE = {
 
 /**
  * Remove task from the catalog
- * @param {Object<Task>}t
+ * @param {Object<Task>} t
  * @param {Array<Task>} tasks
  * @returns {*[]}
  */
