@@ -24,7 +24,7 @@ export default class Catalog {
   render() {
     this.node.innerHTML = '';
     this.node.classList.add('tasks', `tasks--${this.title}`);
-    this.node.id = 'droppable';
+    this.node.id = `sortable-${this.title}`;
     const ul = document.createElement('ul');
     const h2 = document.createElement('h2');
     h2.textContent = this.title;

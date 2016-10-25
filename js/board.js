@@ -4,7 +4,7 @@
 /* eslint-env browser */
 
 import jQuery from 'jquery';
-import draggable, { droppable } from 'jquery-ui-bundle';
+import sortable from 'jquery-ui-bundle';
 
 export default class Board {
 
@@ -82,10 +82,11 @@ export default class Board {
       if (idx === (size - 1)) {
         [...item.node.querySelectorAll('.btn--right')].forEach(i => i.disabled = true);
       }
-      if (item.node.querySelector('#draggable')) {
-        [...item.node.querySelectorAll('#draggable')].forEach(i => jQuery(i.parentNode).draggable());
-      }
-      jQuery(catalog).droppable();
+      jQuery(item.node).sortable({
+        placeholder: 'task-placeholder',
+        connectWith: '.tasks',
+        dropOnEmpty: true,
+      });
       ul.appendChild(catalog);
     });
     this.node.appendChild(ul);
