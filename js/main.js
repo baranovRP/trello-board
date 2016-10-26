@@ -178,7 +178,7 @@ const todo = new Catalog({
   onTaskRemoved(t) {
     this.tasks = removeTask(t, [...this.tasks]);
   },
-  onTaskSortRemove() {
+  onTasksSortUpdate() {
     this.tasks = updateModel(this);
   },
 });
@@ -198,7 +198,7 @@ const inProgress = new Catalog({
   onTaskMoveDown(t) {
     this.tasks = moveTaskVert(t, [...this.tasks], MOVE.DOWN);
   },
-  onTaskSortRemove() {
+  onTasksSortUpdate() {
     this.tasks = updateModel(this);
   },
 });
@@ -218,7 +218,7 @@ const done = new Catalog({
   onTaskMoveDown(t) {
     this.tasks = moveTaskVert(t, [...this.tasks], MOVE.DOWN);
   },
-  onTaskSortRemove() {
+  onTasksSortUpdate() {
     this.tasks = updateModel(this);
   },
 });
@@ -270,7 +270,11 @@ new Board({
     this.catalogs = moveTaskHoriz(t, [...this.catalogs], MOVE.LEFT);
   },
   onTaskSortRemove(c) {
-    c.onTaskSortRemove();
+    c.onTasksSortUpdate();
+    this.catalogs = [...this.catalogs];
+  },
+  onTaskSortReceive(c) {
+    c.onTasksSortUpdate();
     this.catalogs = [...this.catalogs];
   },
 });

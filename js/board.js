@@ -94,6 +94,9 @@ export default class Board {
       jQuery(item.node).on('sortremove', (event, ui) => {
         self.onTaskSortRemove(item);
       });
+      jQuery(item.node).on('sortreceive', (event, ui) => {
+        self.onTaskSortReceive(item);
+      });
       ul.appendChild(catalog);
     });
     this.node.appendChild(ul);
