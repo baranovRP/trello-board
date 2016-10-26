@@ -46,6 +46,24 @@ function addTask(t, title, tasks) {
   return [...tasks];
 }
 
+function updateModel(c) {
+  const self = c;
+  let newTasks = [];
+  if (self.node.childElementCount !== 0) {
+    const els = [...self.node.querySelectorAll('.task')];
+    newTasks = els.map((el, idx) => {
+      return new Task({
+        name: `${el.querySelector('.card_title').innerText}`,
+        description: `${el.querySelector('.card_description').innerText}`,
+        status: self.title,
+        order: idx,
+        node: document.createElement('div'),
+      });
+    });
+  }
+  return [...newTasks];
+}
+
 function moveTaskVert(t, catalogs, direction) {
   function findList(list) {
     return list.title === t.status;
@@ -160,6 +178,9 @@ const todo = new Catalog({
   onTaskRemoved(t) {
     this.tasks = removeTask(t, [...this.tasks]);
   },
+  onTaskSortRemove() {
+    this.tasks = updateModel(this);
+  },
 });
 const inProgress = new Catalog({
   tasks: inProgressTasks,
@@ -176,6 +197,9 @@ const inProgress = new Catalog({
   },
   onTaskMoveDown(t) {
     this.tasks = moveTaskVert(t, [...this.tasks], MOVE.DOWN);
+  },
+  onTaskSortRemove() {
+    this.tasks = updateModel(this);
   },
 });
 const done = new Catalog({
@@ -194,8 +218,8 @@ const done = new Catalog({
   onTaskMoveDown(t) {
     this.tasks = moveTaskVert(t, [...this.tasks], MOVE.DOWN);
   },
-  onTaskSortRemove(c) {
-    // stub
+  onTaskSortRemove() {
+    this.tasks = updateModel(this);
   },
 });
 
@@ -244,5 +268,9 @@ new Board({
   },
   onTaskMoveLeft(t) {
     this.catalogs = moveTaskHoriz(t, [...this.catalogs], MOVE.LEFT);
+  },
+  onTaskSortRemove(c) {
+    c.onTaskSortRemove();
+    this.catalogs = [...this.catalogs];
   },
 });

@@ -65,6 +65,7 @@ export default class Board {
     const size = this.catalogs.length;
 
     this.catalogs.forEach((item, idx) => {
+      const self = this;
       const catalog = document.createElement('li');
       const h2 = document.createElement('h2');
       h2.textContent = item.title;
@@ -91,7 +92,7 @@ export default class Board {
         dropOnEmpty: true,
       });
       jQuery(item.node).on('sortremove', (event, ui) => {
-        item.onTaskSortRemove(item);
+        self.onTaskSortRemove(item);
       });
       ul.appendChild(catalog);
     });
