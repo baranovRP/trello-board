@@ -66,6 +66,9 @@ export default class Board {
 
     this.catalogs.forEach((item, idx) => {
       const catalog = document.createElement('li');
+      const h2 = document.createElement('h2');
+      h2.textContent = item.title;
+      catalog.appendChild(h2);
       catalog.appendChild(item.node);
       catalog.classList.add('catalog');
       if (item.node.querySelector('.btn--up')) {
@@ -86,6 +89,9 @@ export default class Board {
         placeholder: 'task-placeholder',
         connectWith: '.tasks',
         dropOnEmpty: true,
+      });
+      jQuery(item.node).on('sortremove', (event, ui) => {
+        item.onTaskSortRemove(item);
       });
       ul.appendChild(catalog);
     });

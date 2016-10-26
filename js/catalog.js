@@ -26,9 +26,6 @@ export default class Catalog {
     this.node.classList.add('tasks', `tasks--${this.title}`);
     this.node.id = `sortable-${this.title}`;
     const ul = document.createElement('ul');
-    const h2 = document.createElement('h2');
-    h2.textContent = this.title;
-    ul.appendChild(h2);
     this.tasks.forEach((item) => {
       const task = document.createElement('li');
       task.appendChild(item.node);

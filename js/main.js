@@ -194,6 +194,9 @@ const done = new Catalog({
   onTaskMoveDown(t) {
     this.tasks = moveTaskVert(t, [...this.tasks], MOVE.DOWN);
   },
+  onTaskSortRemove(c) {
+    // stub
+  },
 });
 
 const catalogs = [todo, inProgress, done];
